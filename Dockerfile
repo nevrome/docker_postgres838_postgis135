@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
+# install software from package repos
 RUN apt-get update && \
 		apt-get install -y build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev clang libgeos-dev wget
 
@@ -61,7 +62,7 @@ ENV PGDATA /usr/local/pgsql/data
 # port
 EXPOSE 5432
 
-# further postgres settings
+# further postgres settings and system test
 USER postgres
 ENV PATH="/usr/local/pgsql/bin:${PATH}"
 RUN initdb -D $PGDATA && \
@@ -76,4 +77,3 @@ COPY docker_entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker_entrypoint.sh
 RUN ln -s usr/local/bin/docker_entrypoint.sh /
 ENTRYPOINT ["docker_entrypoint.sh"]
-#CMD ["postgres"]
