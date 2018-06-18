@@ -36,6 +36,7 @@ docker exec -it pgres8 /bin/bash
 ```
 
 ```
+su postgres
 createlang plpgsql [yourdatabase]
 psql -d [yourdatabase] -U [youruser] -f /usr/local/pgsql/share/lwpostgis.sql
 psql -d [yourdatabase] -U [youruser] -f /usr/local/pgsql/share/spatial_ref_sys.sql
